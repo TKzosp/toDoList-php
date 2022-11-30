@@ -83,6 +83,56 @@
                 </div>
             </div>
         </section>
+
+        <div
+            class="modal fade"
+            id="editionModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="editionModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editionModalLabel">
+                            Task Edition
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="hidden" id="task-id" />
+                                <label for="task-name" class="col-form-label"
+                                    >name:</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="task-name"
+                                />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            onclick="updateTask()"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script>
             function getTasks() {
                 $.ajax({
@@ -105,7 +155,7 @@
                                 const cell4 = row.insertCell(3);
                                 cell1.innerHTML = data[index].id;
                                 cell2.innerHTML = data[index].name;
-                                cell3.innerHTML = `<button class='btn btn-primary' >Edit</button>`;
+                                cell3.innerHTML = `<button class='btn btn-primary' onClick="openModal(${data[index].id}, '${data[index].name}')">Edit</button>`;
                                 cell4.innerHTML = `<button class='btn btn-danger' onClick="deleteTask(${data[index].id});">Delete</button>`;
                             }
                         }
@@ -136,6 +186,34 @@
                 $.ajax({
                     type: "DELETE",
                     url: `/tasks/${id}`,
+                    success: function () {
+                        getTasks();
+                    },
+                    error: function (data) {
+                        alert(`Error ${JSON.stringify(data)}`);
+                    },
+                });
+            }
+
+            function openModal(id, name) {
+                $("#editionModal").modal("show");
+                $("#task-id").val(id);
+                $("#task-name").val(name);
+            }
+
+            function updateTask() {
+                const idTask = $("#task-id").val();
+                const nameTask = $("#task-name").val();
+                const todo = $("#task-name").val();
+                if (todo.trim().length === 0) {
+                    return alert("Please, enter a task!");
+                }
+                $.ajax({
+                    type: "PUT",
+                    url: `/tasks/${idTask}`,
+                    data: {
+                        name: nameTask,
+                    },
                     success: function () {
                         getTasks();
                     },
