@@ -106,9 +106,7 @@
                                 cell1.innerHTML = data[index].id;
                                 cell2.innerHTML = data[index].name;
                                 cell3.innerHTML = `<button class='btn btn-primary' >Edit</button>`;
-                                cell4.innerHTML = `<button class='btn btn-danger' onClick="deleteTask(${
-                                    data[index.id]
-                                });">Delete</button>`;
+                                cell4.innerHTML = `<button class='btn btn-danger' onClick="deleteTask(${data[index].id});">Delete</button>`;
                             }
                         }
                     },
