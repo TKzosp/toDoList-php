@@ -17,9 +17,9 @@ Xampp
 
 ### passo a passo
 
-clone o repositorio;
-abra o arquivo .env em um editor de codigo;
-altere o nome do banco de dados "DB_DATABASE";
-rode o comando php artisan migrate;
-rode o comando php artisan serve;
+clone o repositorio;<br>
+abra o arquivo .env em um editor de codigo;<br>
+altere o nome do banco de dados "DB_DATABASE";<br>
+rode o comando php artisan migrate;<br>
+rode o comando php artisan serve;<br>
 acesse a aplicação em 127.0.0.1:8000.
